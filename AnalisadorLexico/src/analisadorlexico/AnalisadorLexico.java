@@ -20,10 +20,11 @@ public class AnalisadorLexico {
     public static InputStreamReader entrada;
     public static List<Token> lista = new ArrayList<>();
     public static int letra;
+    public static  int cont = 1;
 
     public static void arquivo() {
 
-        String arquivo = "/Users/thiagoalves/Downloads/codigo_programa.txt";
+        String arquivo= "C:\\Users\\Giuliana e Matheus\\Downloads\\teste7.txt";
 
         FileInputStream arq;
         try {
@@ -45,29 +46,54 @@ public class AnalisadorLexico {
 
     public static void main(String[] args) {
 
-        int cont = 0;
+       
         arquivo();
-        letra = proximoCaracter();
+        //letra = proximoCaracter();
 
         while (letra != -1) {
 
-            while ((char) letra == ' ' || (char) letra == '{') {
+           if((char)letra==' ')
+            {     
+                letra = proximoCaracter();
+                while((char)letra==' ')
+                    letra = proximoCaracter();
+            }
+            
+          System.out.printf(": %c\n",(char)letra);
+                        
+            if((char)letra=='{')
+            while(letra!=-1){
+                letra=proximoCaracter();
+               System.out.printf("W: %c\n",(char)letra);
 
-                if ((char) letra == '\n') {
+                 if((char)letra=='}' )
+                  {
+                   letra=proximoCaracter();
+                   break;
+                  }
+                if(letra == -1)
+                {
+                    System.out.printf("Nao foi encontrado um }.Linha %d\n",cont);
+                    System.exit(0);
+                }
+                
+                 if ((char) letra == '\n') {
+                     System.out.printf("PLW");
                     cont++;
                 }
-                letra = proximoCaracter();
-                if ((char) letra == '}') {
-                    letra = proximoCaracter();
-                    break;
-                }
             }
-
+             if((char)letra=='}')
+            {
+                System.out.printf("Nao foi encontrado um { correspondente. Linha %d\n",cont);
+                System.exit(0);
+            }
+               
             if ((char) letra == '\n') {
+                System.out.println("PL");
                 cont++;
             }
 
-            if (letra != 1) {
+            if (letra != -1) {
                 pegaToken((char) letra);
             }
             // System.out.println("\nProximo caracter!\n");     
@@ -77,7 +103,7 @@ public class AnalisadorLexico {
             System.out.println(lista1);
         }
 
-        System.out.println("cont = "+cont);
+        System.out.println("Total de linhas = "+cont);
     }
 
     public static void pegaToken(char letra) {
@@ -93,6 +119,7 @@ public class AnalisadorLexico {
         } else if ((char) letra == '.' || (char) letra == ',' || (char) letra == ';' || (char) letra == '(' || (char) letra == ')' || (char) letra == '=') {
             trataPontuacao((char) letra);
         } else if ((char) letra == '\n') {
+            System.out.println("PLPT");
             trataPulaLinha();
         } else {
             trataLetra((char) letra);
@@ -103,7 +130,7 @@ public class AnalisadorLexico {
         letra = opdigito;
         String digito = "";
         while (((char) letra == '0' || (char) letra == '1' || (char) letra == '2' || (char) letra == '3' || (char) letra == '4' || (char) letra == '5' || (char) letra == '6' || (char) letra == '7' || (char) letra == '8' || (char) letra == '9') && letra != -1) {
-            digito += letra;
+            digito += (char)letra;
             letra = proximoCaracter();
             // System.out.printf("Letra d = %c\n",(char)letra);
         }
@@ -168,13 +195,14 @@ public class AnalisadorLexico {
 
         palavra += (char) letra;
         letra = proximoCaracter();
-        while ((char) letra != ' ' && (char) letra != '{' && (char) letra != '+' && (char) letra != '-' && (char) letra != '*' && (char) letra != '<' && (char) letra != '>' && (char) letra != '!' && (char) letra != '.' && (char) letra != ',' && (char) letra != ';' && (char) letra != '(' && (char) letra != ')' && (char) letra != '=' && (char) letra != ':' && letra != -1 && letra != '\n') {
+        while ((char) letra != ' ' && (char) letra != '{'&& (char) letra != '}' && (char) letra != '+' && (char) letra != '-' && (char) letra != '*' && (char) letra != '<' && (char) letra != '>' && (char) letra != '!' && (char) letra != '.' && (char) letra != ',' && (char) letra != ';' && (char) letra != '(' && (char) letra != ')' && (char) letra != '=' && (char) letra != ':' && letra != -1 && letra != '\n') {
 
             palavra += (char) letra;
             letra = proximoCaracter();
         }
 
-        lista.add(new Token(palavra));
+         if(!(palavra.equals("\n")))
+         lista.add(new Token(palavra.trim()));
     }
 
     private static void trataPulaLinha() {
