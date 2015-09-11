@@ -23,9 +23,9 @@ public class AnalisadorLexico {
     public static List<Token> lista = new ArrayList<>();
     public static int letra;
  
-      public static void arquivo(){
+    public static void arquivo(){
         
-        String arquivo= "C:\\Users\\Giuliana e Matheus\\Downloads\\codigo_programa.txt";
+        String arquivo= "/Users/thiagoalves/Downloads/codigo_programa.txt";
 
         FileInputStream arq;
         try {
@@ -47,12 +47,8 @@ public class AnalisadorLexico {
     
     public static  void main(String[] args) {
 
-      // List<Token> lista = new ArrayList<>();
        arquivo();
-      int i=0;
-      char aux=' ';
-      
-      letra=proximoCaracter();
+       letra=proximoCaracter();
       
         while(letra!=-1){
             
@@ -72,7 +68,8 @@ public class AnalisadorLexico {
             }
          // System.out.println("\nProximo caracter!\n");     
         }
-         for (Token lista1 : lista) {
+        
+        for (Token lista1 : lista) {
             System.out.println(lista1);  
         }
         
@@ -92,6 +89,8 @@ public class AnalisadorLexico {
             trataOperadorRelacional((char)letra);
         else if((char)letra=='.'||(char)letra==','||(char)letra==';'||(char)letra=='('||(char)letra==')'||(char)letra=='=')
             trataPontuacao((char)letra);
+        else if((char)letra=='\n')
+            trataPulaLinha();
         else
             trataLetra((char)letra);
     }
@@ -100,8 +99,8 @@ public class AnalisadorLexico {
     {
         letra = opdigito;
         String digito = "";
-         while(((char)letra=='0' || (char)letra=='1'||(char)letra=='2'||(char)letra=='3'||(char)letra=='4'||(char)letra=='5'||(char)letra=='6'||(char)letra=='7'||(char)letra=='8'||(char)letra=='9')&&letra!=-1){
-                      digito+=letra;  
+        while(((char)letra=='0' || (char)letra=='1'||(char)letra=='2'||(char)letra=='3'||(char)letra=='4'||(char)letra=='5'||(char)letra=='6'||(char)letra=='7'||(char)letra=='8'||(char)letra=='9')&&letra!=-1){
+            digito+=letra;  
                       letra = proximoCaracter();
                      // System.out.printf("Letra d = %c\n",(char)letra);
                     }
@@ -172,14 +171,19 @@ public class AnalisadorLexico {
         letra = letraOuDigito;
         String palavra ="";
         
-         palavra+=(char)letra;
-                  letra=proximoCaracter();
-                  while((char)letra!=' ' && (char)letra!='{' && (char)letra!='+'&& (char)letra!='-' && (char)letra!='*' && (char)letra!='<'&& (char)letra!='>' && (char)letra!='!' && (char)letra!='.'&& (char)letra!=',' && (char)letra!=';'&&(char)letra!='(' && (char)letra!=')'&&(char)letra!='=' && (char)letra!=':'  &&  letra!=-1){
+        palavra+=(char)letra;
+        letra=proximoCaracter();
+        while((char)letra!=' ' && (char)letra!='{' && (char)letra!='+'&& (char)letra!='-' && (char)letra!='*' && (char)letra!='<'&& (char)letra!='>' && (char)letra!='!' && (char)letra!='.'&& (char)letra!=',' && (char)letra!=';'&&(char)letra!='(' && (char)letra!=')'&&(char)letra!='=' && (char)letra!=':'  &&  letra!=-1 &&  letra!='\n'){
                      
-                   palavra+=(char)letra;
-                      letra=proximoCaracter();
-                  }
-                  
-                  lista.add(new Token(palavra));
+            palavra+=(char)letra;
+            letra=proximoCaracter();
+        }
+        
+        lista.add(new Token(palavra));
+    }
+
+    private static void trataPulaLinha() {
+        //primeiro pega o n do \n
+        letra=proximoCaracter();
     }
 }
