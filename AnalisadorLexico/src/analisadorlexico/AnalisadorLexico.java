@@ -103,7 +103,6 @@ public class AnalisadorLexico {
             System.out.println(lista1);
         }
 
-        System.out.println("Total de linhas = "+cont);
     }
 
     public static void pegaToken(char letra) {
