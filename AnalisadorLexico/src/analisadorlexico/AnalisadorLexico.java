@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.*;
 
 /**
  *
@@ -21,10 +22,10 @@ public class AnalisadorLexico {
     public static List<Token> lista = new ArrayList<>();
     public static int letra;
     public static  int cont = 1;
-
+     
     public static void arquivo() {
 
-        String arquivo= "C:\\Users\\Giuliana e Matheus\\Downloads\\teste7.txt";
+        String arquivo= "C:\\Users\\Giuliana e Matheus\\Downloads\\teste1.txt";
 
         FileInputStream arq;
         try {
@@ -48,18 +49,22 @@ public class AnalisadorLexico {
 
        
         arquivo();
-        //letra = proximoCaracter();
+      String string="";
+      
+    
+      letra = proximoCaracter();
 
         while (letra != -1) {
 
            if((char)letra==' ')
-            {     
+            {    System.out.printf("espaco\n");
+
                 letra = proximoCaracter();
                 while((char)letra==' ')
                     letra = proximoCaracter();
             }
             
-          System.out.printf(": %c\n",(char)letra);
+          System.out.printf("L:%c|\n",(char)letra);
                         
             if((char)letra=='{')
             while(letra!=-1){
@@ -87,7 +92,12 @@ public class AnalisadorLexico {
                 System.out.printf("Nao foi encontrado um { correspondente. Linha %d\n",cont);
                 System.exit(0);
             }
-               
+//             
+//               if ((char) letra == '\r') {
+//                System.out.println("Barra R");
+//               continue;
+//            }  
+             
             if ((char) letra == '\n') {
                 System.out.println("PL");
                 cont++;
@@ -124,6 +134,7 @@ public class AnalisadorLexico {
         } else {
             trataLetra((char) letra);
         }
+              
     }
 
     public static void trataDigito(char opdigito) {
@@ -190,21 +201,39 @@ public class AnalisadorLexico {
     }
 
     public static void trataLetra(char letraOuDigito) {
-        letra = letraOuDigito;
+        Character character= new Character(letraOuDigito);
         String palavra = "";
-
-        palavra += (char) letra;
+        
+        if(Character.isLetterOrDigit(character))
+        {
+            System.out.printf("Char=%c\n",character);
+             letra = letraOuDigito;
+            palavra += (char) letra;
+        
+        
         letra = proximoCaracter();
-        while ((char) letra != ' ' && (char) letra != '{'&& (char) letra != '}' && (char) letra != '+' && (char) letra != '-' && (char) letra != '*' && (char) letra != '<' && (char) letra != '>' && (char) letra != '!' && (char) letra != '.' && (char) letra != ',' && (char) letra != ';' && (char) letra != '(' && (char) letra != ')' && (char) letra != '=' && (char) letra != ':' && letra != -1 && letra != '\n') {
-
+            while(Character.isLetterOrDigit((char)letra)|| (char)letra=='_'){
             palavra += (char) letra;
             letra = proximoCaracter();
-        }
-
+            }
+        
          if(!(palavra.equals("\n")))
          lista.add(new Token(palavra.trim()));
-    }
-
+       }
+ else
+          { 
+                 if ((char) letra == '\r' || (char) letra == '\t') {
+                System.out.println("Barra r");
+                trataPulaLinha();
+                  }
+                
+               else{
+                   System.out.printf("Simbolo inválido '%c' Linha:%d\n",(char)letra,cont);
+                   System.exit(0);
+               }
+          }  
+               
+}
     private static void trataPulaLinha() {
         //primeiro pega o n do \n
         letra = proximoCaracter();
