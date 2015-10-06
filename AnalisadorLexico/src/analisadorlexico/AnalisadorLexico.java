@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.lang.*;
 
 /**
  *
@@ -25,7 +24,7 @@ public class AnalisadorLexico {
      
     public static void arquivo() {
 
-        String arquivo= "C:\\Users\\Giuliana e Matheus\\Downloads\\teste1.txt";
+        String arquivo= "/Users/thiagoalves/Documents/Projects/Compiladores---Analisador-Lexical/teste3.txt";
 
         FileInputStream arq;
         try {
@@ -50,26 +49,23 @@ public class AnalisadorLexico {
        
         arquivo();
       String string="";
-      
     
       letra = proximoCaracter();
 
         while (letra != -1) {
 
            if((char)letra==' ')
-            {    System.out.printf("espaco\n");
+            {
 
                 letra = proximoCaracter();
                 while((char)letra==' ')
                     letra = proximoCaracter();
             }
             
-          System.out.printf("L:%c|\n",(char)letra);
                         
             if((char)letra=='{')
             while(letra!=-1){
                 letra=proximoCaracter();
-               System.out.printf("W: %c\n",(char)letra);
 
                  if((char)letra=='}' )
                   {
@@ -83,7 +79,6 @@ public class AnalisadorLexico {
                 }
                 
                  if ((char) letra == '\n') {
-                     System.out.printf("PLW");
                     cont++;
                 }
             }
@@ -92,21 +87,15 @@ public class AnalisadorLexico {
                 System.out.printf("Nao foi encontrado um { correspondente. Linha %d\n",cont);
                 System.exit(0);
             }
-//             
-//               if ((char) letra == '\r') {
-//                System.out.println("Barra R");
-//               continue;
-//            }  
+
              
             if ((char) letra == '\n') {
-                System.out.println("PL");
                 cont++;
             }
 
             if (letra != -1) {
                 pegaToken((char) letra);
             }
-            // System.out.println("\nProximo caracter!\n");     
         }
 
         for (Token lista1 : lista) {
@@ -116,7 +105,6 @@ public class AnalisadorLexico {
     }
 
     public static void pegaToken(char letra) {
-        //System.out.printf("Letra= %c\n", (char) letra);
         if ((char) letra == '1' || (char) letra == '2' || (char) letra == '3' || (char) letra == '4' || (char) letra == '5' || (char) letra == '6' || (char) letra == '7' || (char) letra == '8' || (char) letra == '9') {
             trataDigito((char) letra);
         } else if ((char) letra == ':') {
@@ -128,7 +116,6 @@ public class AnalisadorLexico {
         } else if ((char) letra == '.' || (char) letra == ',' || (char) letra == ';' || (char) letra == '(' || (char) letra == ')' || (char) letra == '=') {
             trataPontuacao((char) letra);
         } else if ((char) letra == '\n') {
-            System.out.println("PLPT");
             trataPulaLinha();
         } else {
             trataLetra((char) letra);
@@ -148,26 +135,22 @@ public class AnalisadorLexico {
         token.lexema = digito;
         token.ssimbolo = "Snumero";
         lista.add(token);
-        //System.out.printf("digito: %s\n",digito);
     }
 
     public static void trataAtribuicao(char doisPontos) {
         letra = doisPontos;
         String atribuicao = "" + doisPontos;
 
-        //System.out.printf("Letra : = %c\n",(char)letra);
         letra = proximoCaracter();
         if ((char) letra == '=') {
             atribuicao += (char) letra;
             letra = proximoCaracter();
         }
-        //token.trataToken(atribuicao);
         lista.add(new Token(atribuicao));
         letra = proximoCaracter();
     }
 
     public static void trataOperadorAritmetico() {
-        // System.out.printf("Letra +-* = %c\n",(char)letra);
         lista.add(new Token((char) letra + ""));
         letra = proximoCaracter();
     }
@@ -176,7 +159,6 @@ public class AnalisadorLexico {
         letra = opR;
         String operadorRelacional = "";
 
-        // System.out.printf("Letra <>! = %c\n",(char)letra);
         operadorRelacional += (char) letra;
         letra = proximoCaracter();
         if ((char) letra == '=') {
@@ -194,7 +176,6 @@ public class AnalisadorLexico {
     public static void trataPontuacao(char opPontuacao) {
         letra = opPontuacao;
         String pontuacao = "" + opPontuacao;
-        //  System.out.printf("Letra opRel = %c\n",(char)letra);
         lista.add(new Token(pontuacao));
         letra = proximoCaracter();
     }
@@ -205,7 +186,6 @@ public class AnalisadorLexico {
         
         if(Character.isLetterOrDigit(character))
         {
-            System.out.printf("Char=%c\n",character);
              letra = letraOuDigito;
             palavra += (char) letra;
         
@@ -222,7 +202,6 @@ public class AnalisadorLexico {
  else
           { 
                  if ((char) letra == '\r' || (char) letra == '\t') {
-                System.out.println("Barra r");
                 trataPulaLinha();
                   }
                 
@@ -234,7 +213,6 @@ public class AnalisadorLexico {
                
 }
     private static void trataPulaLinha() {
-        //primeiro pega o n do \n
         letra = proximoCaracter();
     }
 }
