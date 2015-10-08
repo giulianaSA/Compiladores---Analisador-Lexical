@@ -124,31 +124,25 @@ public class Compiladores2 {
     }
 
     private static void analisaComandos() {
-        if("sinicio".equals(token.ssimbolo))
-        {
+        if ("sinicio".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaComandoSimples();
-            
-            while(!"sfim".equals(token.ssimbolo))
-            {
-                if("sponto_virgula".equals(token.ssimbolo))
-                {
+
+            while (!"sfim".equals(token.ssimbolo)) {
+                if ("sponto_virgula".equals(token.ssimbolo)) {
                     token = lexico.token();
-                    if(!"sfim".equals(token.ssimbolo))
+                    if (!"sfim".equals(token.ssimbolo)) {
                         analisaComandoSimples();
-                   
-                }
-                else
-                {
+                    }
+
+                } else {
                     System.err.println(" ; nao encontrado, linha" + lexico.cont);
                     System.exit(1);
                 }
-               
+
                 token = lexico.token();
             }
-        }
-        else
-        {
+        } else {
             System.err.println("Palavra reservada inicio nao encontrada, linha" + lexico.cont);
             System.exit(1);
         }
@@ -185,12 +179,11 @@ public class Compiladores2 {
     }
 
     private static void analisaTipo() {
-        if(!"sinteiro".equals(token.ssimbolo) || !"sbooleano".equals(token.ssimbolo))
-        {
+        if (!"sinteiro".equals(token.ssimbolo) || !"sbooleano".equals(token.ssimbolo)) {
             System.err.println("Tipo invalido, linha" + lexico.cont);
             System.exit(1);
         }
-        
+
         token = lexico.token();
 
     }
@@ -198,21 +191,17 @@ public class Compiladores2 {
     private static void analisaComandoSimples() {
         if ("sidentificador".equals(token.ssimbolo)) {
             analisaAtribChProcedimento();
-        }
-        else if("sse".equals(token.ssimbolo)){
+        } else if ("sse".equals(token.ssimbolo)) {
             analisaSe();
-        }
-        else if("senquanto".equals(token.ssimbolo)){
+        } else if ("senquanto".equals(token.ssimbolo)) {
             analisaEnquanto();
-        }
-        else if("sleia".equals(token.ssimbolo)){
+        } else if ("sleia".equals(token.ssimbolo)) {
             analisaLeia();
-        }
-        else if("sescreva".equals(token.ssimbolo)){
+        } else if ("sescreva".equals(token.ssimbolo)) {
             analisaEscreva();
-        }
-        else
+        } else {
             analisaComandos();
+        }
 
     }
 
@@ -283,6 +272,19 @@ public class Compiladores2 {
 
     private static void analisaDeclaracaoProcedimento() {
 
+        token = lexico.token();
+        if ("sidentificador".equals(token.ssimbolo)) {
+            token = lexico.token();
+            if ("sponto_virgula".equals(token.ssimbolo)) {
+                analisaBloco();
+            } else {
+                System.err.println("; Não encontrado, linha" + lexico.cont);
+                System.exit(1);
+            }
+        } else {
+            System.err.println("Falta o identificador, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
 
     private static void analisaDeclaracaoFuncao() {
@@ -290,7 +292,11 @@ public class Compiladores2 {
     }
 
     private static void analisaExpressao() {
-
+        analisaExpressaoSimples();
+        if ("smaior".equals(token.ssimbolo) || "smaiorig".equals(token.ssimbolo) || "smenor".equals(token.ssimbolo) || "smenorig".equals(token.ssimbolo)) {
+            token = lexico.token();
+            analisaExpressaoSimples();
+        }
     }
 
     private static void analisaExpressaoSimples() {
@@ -298,7 +304,11 @@ public class Compiladores2 {
     }
 
     private static void analisaTermo() {
-
+        analisaFator();
+        while ("smult".equals(token.ssimbolo) || "sdiv".equals(token.ssimbolo) || "se".equals(token.ssimbolo)) {
+            token = lexico.token();
+            analisaFator();
+        }
     }
 
     private static void analisaFator() {
