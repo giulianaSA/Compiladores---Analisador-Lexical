@@ -74,6 +74,21 @@ public class Compiladores2 {
 
     private static void analisaEtVariaveis() {
         
+        if ("svar".equals(token.ssimbolo)) {
+            token = lexico.token();
+            if ("identificador".equals(token.ssimbolo)) {
+                while ("identificador".equals(token.ssimbolo)) {
+                    analisaVariaveis();
+                    if ("spontvirg".equals(token.ssimbolo)) {
+                        token = lexico.token();
+
+                    }
+                }
+
+            }
+        } else {
+            //Erro
+        }
     }
 
     private static void analisaSubrotinas() {
