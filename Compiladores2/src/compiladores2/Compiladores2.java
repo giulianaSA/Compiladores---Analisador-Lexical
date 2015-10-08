@@ -376,12 +376,24 @@ public class Compiladores2 {
     }
 
     private static void analisaExpressaoSimples() {
+        
+        if("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo))
+        {
+            token = lexico.token();
+            analisaTermo();
+            while("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo) || "sou".equals(token.ssimbolo))
+            {
+                token = lexico.token();
+                analisaTermo();
+            }
+        }
 
     }
 
     private static void analisaTermo() {
 
          analisaFator();
+         
         while ("smult".equals(token.ssimbolo) || "sdiv".equals(token.ssimbolo) || "se".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaFator();
@@ -389,6 +401,46 @@ public class Compiladores2 {
     }
 
     private static void analisaFator() {
+        if("sidentificador".equals(token.ssimbolo))
+            chamadaFuncao();
+        else
+        {
+            if("snumero".equals(token.ssimbolo))
+                token = lexico.token();
+            else if("snao".equals(token.ssimbolo))
+            {
+                token = lexico.token();
+                analisaFator();
+            }
+            else
+            {
+                if("sabre_parenteses".equals(token.ssimbolo))
+                {
+                 token = lexico.token();
+                 analisaExpressao();
+                 if("sfecha_parenteses".equals(token.ssimbolo))
+                    token = lexico.token();
+                    else
+                    {
+                      System.err.println(" ) nao encontrado, linha" + lexico.cont);
+                      System.exit(1);
+                    }
+                     
+                }
+                else
+                {
+                    if("verdadeiro".equals(token.lexema)||"falso".equals(token.lexema) )
+                        token = lexico.token();
+                    else
+                    {
+                        System.err.println(" Fator incompleto, linha" + lexico.cont);
+                        System.exit(1);
+                    }
+                }
+            }
+            
+        }
+        
 
     }
 
@@ -401,6 +453,7 @@ public class Compiladores2 {
     }
 
     private static void chamadaProcedimento() {
+        
 
     }
 }
