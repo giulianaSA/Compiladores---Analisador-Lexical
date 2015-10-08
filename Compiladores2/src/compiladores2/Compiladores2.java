@@ -124,31 +124,25 @@ public class Compiladores2 {
     }
 
     private static void analisaComandos() {
-        if("sinicio".equals(token.ssimbolo))
-        {
+        if ("sinicio".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaComandoSimples();
-            
-            while(!"sfim".equals(token.ssimbolo))
-            {
-                if("sponto_virgula".equals(token.ssimbolo))
-                {
+
+            while (!"sfim".equals(token.ssimbolo)) {
+                if ("sponto_virgula".equals(token.ssimbolo)) {
                     token = lexico.token();
-                    if(!"sfim".equals(token.ssimbolo))
+                    if (!"sfim".equals(token.ssimbolo)) {
                         analisaComandoSimples();
-                   
-                }
-                else
-                {
+                    }
+
+                } else {
                     System.err.println(" ; nao encontrado, linha" + lexico.cont);
                     System.exit(1);
                 }
-               
+
                 token = lexico.token();
             }
-        }
-        else
-        {
+        } else {
             System.err.println("Palavra reservada inicio nao encontrada, linha" + lexico.cont);
             System.exit(1);
         }
@@ -185,12 +179,11 @@ public class Compiladores2 {
     }
 
     private static void analisaTipo() {
-        if(!"sinteiro".equals(token.ssimbolo) || !"sbooleano".equals(token.ssimbolo))
-        {
+        if (!"sinteiro".equals(token.ssimbolo) || !"sbooleano".equals(token.ssimbolo)) {
             System.err.println("Tipo invalido, linha" + lexico.cont);
             System.exit(1);
         }
-        
+
         token = lexico.token();
 
     }
@@ -198,21 +191,17 @@ public class Compiladores2 {
     private static void analisaComandoSimples() {
         if ("sidentificador".equals(token.ssimbolo)) {
             analisaAtribChProcedimento();
-        }
-        else if("sse".equals(token.ssimbolo)){
+        } else if ("sse".equals(token.ssimbolo)) {
             analisaSe();
-        }
-        else if("senquanto".equals(token.ssimbolo)){
+        } else if ("senquanto".equals(token.ssimbolo)) {
             analisaEnquanto();
-        }
-        else if("sleia".equals(token.ssimbolo)){
+        } else if ("sleia".equals(token.ssimbolo)) {
             analisaLeia();
-        }
-        else if("sescreva".equals(token.ssimbolo)){
+        } else if ("sescreva".equals(token.ssimbolo)) {
             analisaEscreva();
-        }
-        else
+        } else {
             analisaComandos();
+        }
 
     }
 
@@ -277,13 +266,10 @@ public class Compiladores2 {
 
         token = lexico.token();
         analisaExpressao();
-        if("sfaca".equals(token.ssimbolo))
-        {
+        if ("sfaca".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaComandoSimples();
-        }
-        else
-        {
+        } else {
             System.err.println("Palavra reservada faca nao encontrada, linha" + lexico.cont);
             System.exit(1);
         }
@@ -293,23 +279,19 @@ public class Compiladores2 {
 
         token = lexico.token();
         analisaExpressao();
-        
-        if("sentao".equals(token.ssimbolo))
-        {
+
+        if ("sentao".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaComandoSimples();
-            if("ssenao".equals(token.ssimbolo))
-            {
+            if ("ssenao".equals(token.ssimbolo)) {
                 token = lexico.token();
                 analisaComandoSimples();
             }
-        }
-        else
-        {
+        } else {
             System.err.println("Palavra reservada entao nao encontrada, linha" + lexico.cont);
             System.exit(1);
         }
-        
+
     }
 
     private static void analisaDeclaracaoProcedimento() {
@@ -332,43 +314,34 @@ public class Compiladores2 {
     private static void analisaDeclaracaoFuncao() {
 
         token = lexico.token();
-        if("sidentificador".equals(token.ssimbolo))
-        {
+        if ("sidentificador".equals(token.ssimbolo)) {
             token = lexico.token();
-            if("sdoispontos".equals(token.ssimbolo))
-            {
+            if ("sdoispontos".equals(token.ssimbolo)) {
                 token = lexico.token();
-                if("sinteiro".equals(token.ssimbolo) || "sbooleano".equals(token.ssimbolo))
-                {
-                    token = lexico.token();  
-                     if("sponto_virgula".equals(token.ssimbolo))
-                     analisaBloco();
+                if ("sinteiro".equals(token.ssimbolo) || "sbooleano".equals(token.ssimbolo)) {
+                    token = lexico.token();
+                    if ("sponto_virgula".equals(token.ssimbolo)) {
+                        analisaBloco();
+                    }
+                } else {
+                    System.err.println("Tipo invalido, linha" + lexico.cont);
+                    System.exit(1);
                 }
-                else
-                {
-                   System.err.println("Tipo invalido, linha" + lexico.cont);
-                   System.exit(1); 
-                }
-                
-            }
-            else
-            {
+
+            } else {
                 System.err.println(": nao encontrado, linha" + lexico.cont);
                 System.exit(1);
             }
-        }
-        else
-        {
+        } else {
             System.err.println("Identificador nao encontrado, linha" + lexico.cont);
             System.exit(1);
         }
-        
-        
+
     }
 
     private static void analisaExpressao() {
 
-         analisaExpressaoSimples();
+        analisaExpressaoSimples();
         if ("smaior".equals(token.ssimbolo) || "smaiorig".equals(token.ssimbolo) || "smenor".equals(token.ssimbolo) || "smenorig".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaExpressaoSimples();
@@ -376,13 +349,11 @@ public class Compiladores2 {
     }
 
     private static void analisaExpressaoSimples() {
-        
-        if("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo))
-        {
+
+        if ("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaTermo();
-            while("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo) || "sou".equals(token.ssimbolo))
-            {
+            while ("smais".equals(token.ssimbolo) || "smenos".equals(token.ssimbolo) || "sou".equals(token.ssimbolo)) {
                 token = lexico.token();
                 analisaTermo();
             }
@@ -392,8 +363,8 @@ public class Compiladores2 {
 
     private static void analisaTermo() {
 
-         analisaFator();
-         
+        analisaFator();
+
         while ("smult".equals(token.ssimbolo) || "sdiv".equals(token.ssimbolo) || "se".equals(token.ssimbolo)) {
             token = lexico.token();
             analisaFator();
@@ -401,59 +372,67 @@ public class Compiladores2 {
     }
 
     private static void analisaFator() {
-        if("sidentificador".equals(token.ssimbolo))
+        if ("sidentificador".equals(token.ssimbolo)) {
             chamadaFuncao();
-        else
-        {
-            if("snumero".equals(token.ssimbolo))
+        } else {
+            if ("snumero".equals(token.ssimbolo)) {
                 token = lexico.token();
-            else if("snao".equals(token.ssimbolo))
-            {
+            } else if ("snao".equals(token.ssimbolo)) {
                 token = lexico.token();
                 analisaFator();
-            }
-            else
-            {
-                if("sabre_parenteses".equals(token.ssimbolo))
-                {
-                 token = lexico.token();
-                 analisaExpressao();
-                 if("sfecha_parenteses".equals(token.ssimbolo))
+            } else {
+                if ("sabre_parenteses".equals(token.ssimbolo)) {
                     token = lexico.token();
-                    else
-                    {
-                      System.err.println(" ) nao encontrado, linha" + lexico.cont);
-                      System.exit(1);
-                    }
-                     
-                }
-                else
-                {
-                    if("verdadeiro".equals(token.lexema)||"falso".equals(token.lexema) )
+                    analisaExpressao();
+                    if ("sfecha_parenteses".equals(token.ssimbolo)) {
                         token = lexico.token();
-                    else
-                    {
+                    } else {
+                        System.err.println(" ) nao encontrado, linha" + lexico.cont);
+                        System.exit(1);
+                    }
+
+                } else {
+                    if ("verdadeiro".equals(token.lexema) || "falso".equals(token.lexema)) {
+                        token = lexico.token();
+                    } else {
                         System.err.println(" Fator incompleto, linha" + lexico.cont);
                         System.exit(1);
                     }
                 }
             }
-            
+
         }
-        
 
     }
 
     private static void chamadaFuncao() {
 
+        if ("sidentificador".equals(token.ssimbolo)) {
+            token = lexico.token();
+        } else {
+            System.err.println(" Chamada de funcao invalida, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
 
     private static void analisaAtribuicao() {
 
+        token = lexico.token();
+
+        if ("sdigito".equals(token.ssimbolo) || "sbooleano".equals(token.ssimbolo)) {
+            token = lexico.token();
+        } else {
+            System.err.println("Era esperado um digito, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
 
     private static void chamadaProcedimento() {
-        
-
+        if ("sidentificador".equals(token.ssimbolo)) {
+            token = lexico.token();
+        } else {
+            System.err.println(" Chamada de procedimento invalida, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
 }
