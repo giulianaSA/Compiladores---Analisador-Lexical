@@ -55,4 +55,8 @@ public class Compiladores2 {
         }
     }
 
+    public static void Analisa_tipo()
+    {
+        
+    }
 }
