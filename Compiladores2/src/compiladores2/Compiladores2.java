@@ -17,8 +17,28 @@ public class Compiladores2 {
     public static void main(String[] args) {
 
         Lexico lexico = new Lexico();
-
         Token token = lexico.token();
+        if ("sprograma".equals(token.ssimbolo)) {
+            token = lexico.token();
+
+            if ("sidentificador".equals(token.ssimbolo)) {
+                token = lexico.token();
+
+                if ("spontovirgula".equals(token.ssimbolo)) {
+
+//AnalisaBloco
+                    if ("sponto".equals(token.ssimbolo)) {
+                       
+                        if (lexico.token() == null) {
+//sucesso                   
+                        }else
+                            System.err.println("Comandos após o fim do programa, linha"+Lexico.cont);
+                    }
+                }
+
+            }
+        }
+
         while (token != null) {
             System.out.println(token.lexema + " " + token.ssimbolo + " ");
             token = lexico.token();
