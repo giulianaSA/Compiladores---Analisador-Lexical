@@ -96,19 +96,19 @@ public class Token {
         else if(palavra.trim().equals("div"))
                 this.ssimbolo = "sdiv";
         else if(palavra.trim().equals("e"))
-                this.ssimbolo = "Se";
+                this.ssimbolo = "se";
         else if(palavra.trim().equals("nao"))
                 this.ssimbolo = "snao";
         else if(palavra.trim().equals("ou"))
-                this.ssimbolo = "Sou";
+                this.ssimbolo = "sou";
         else if(palavra.trim().equals(":"))
                 this.ssimbolo = "sdoispontos";
         else if(palavra.trim().equals("integer"))
                 this.ssimbolo = "sinteiro";
          else if(palavra.trim().equals("\n"))
-                this.ssimbolo = "SPulaLinha";
+                this.ssimbolo = "spulaLinha";
         else 
-           this.ssimbolo = "Sidentificador";   
+           this.ssimbolo = "sidentificador";  
     }
     
     public Token trataToken (String palavra)
@@ -182,19 +182,19 @@ public class Token {
         else if(palavra.trim().equals("div"))
                 this.ssimbolo = "sdiv";
         else if(palavra.trim().equals("e"))
-                this.ssimbolo = "Se";
+                this.ssimbolo = "se";
         else if(palavra.trim().equals("nao"))
                 this.ssimbolo = "snao";
         else if(palavra.trim().equals("ou"))
-                this.ssimbolo = "Sou";
+                this.ssimbolo = "sou";
         else if(palavra.trim().equals(":"))
                 this.ssimbolo = "sdoispontos";
         else if(palavra.trim().equals("integer"))
                 this.ssimbolo = "sinteiro";
          else if(palavra.trim().equals("\n"))
-                this.ssimbolo = "SPulaLinha";
+                this.ssimbolo = "spulaLinha";
         else 
-           this.ssimbolo = "Sidentificador";
+           this.ssimbolo = "sidentificador";
        
        return this;
     }
