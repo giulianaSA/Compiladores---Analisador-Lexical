@@ -43,7 +43,7 @@ public class Compiladores2 {
                         System.exit(1);
                     }
                 } else {
-                    System.err.println(". Não encontrado, linha" + lexico.cont);
+                    System.err.println("; Não encontrado, linha" + lexico.cont);
                     System.exit(1);
 
                 }
@@ -73,25 +73,53 @@ public class Compiladores2 {
     }
 
     private static void analisaEtVariaveis() {
-        
+
         if ("svar".equals(token.ssimbolo)) {
             token = lexico.token();
-            if ("identificador".equals(token.ssimbolo)) {
-                while ("identificador".equals(token.ssimbolo)) {
+            if ("sidentificador".equals(token.ssimbolo)) {
+                while ("sidentificador".equals(token.ssimbolo)) {
                     analisaVariaveis();
                     if ("spontvirg".equals(token.ssimbolo)) {
                         token = lexico.token();
-
+                    } else {
+                        System.err.println("; Não encontrado, linha" + lexico.cont);
+                        System.exit(1);
                     }
                 }
-
+            } else {
+                System.err.println("Var sem nenhuma declaracao, linha" + lexico.cont);
+                System.exit(1);
             }
-        } else {
-            //Erro
         }
     }
 
     private static void analisaSubrotinas() {
+
+        int flag = 0;
+
+        if ("sprocedimento".equals(token.ssimbolo) || "sfuncao".equals(token.ssimbolo)) {
+
+        }
+
+        while ("sprocedimento".equals(token.ssimbolo) || "sfuncao".equals(token.ssimbolo)) {
+            if ("sprocedimento".equals(token.ssimbolo)) {
+                analisaDeclaracaoProcedimento();
+            } else {
+                analisaDeclaracaoFuncao();
+            }
+
+            if ("sponto_virgula".equals(token.ssimbolo)) {
+                token = lexico.token();
+            } else {
+                System.err.println("Falta o ;, linha" + lexico.cont);
+                System.exit(1);
+            }
+
+            if (flag == 1) {
+
+            }
+
+        }
 
     }
 
@@ -126,11 +154,36 @@ public class Compiladores2 {
         }
 
     }
-    
-    private static void analisaVariaveis() {
 
+    private static void analisaVariaveis() {
+        do {
+            if ("sidentificador".equals(token.ssimbolo)) {
+                token = lexico.token();
+
+                if ("svirgula".equals(token.ssimbolo) || "sdoispontos".equals(token.ssimbolo)) {
+
+                    if ("svirgula".equals(token.ssimbolo)) {
+
+                        token = lexico.token();
+                        if ("sdoispontos".equals(token.ssimbolo)) {
+                            System.err.println(", não pode vir acompanhada de ;, linha" + lexico.cont);
+                            System.exit(1);
+                        }
+                    }
+                } else {
+                    System.err.println("Falta , ou :, linha" + lexico.cont);
+                    System.exit(1);
+                }
+            } else {
+                System.err.println("Falta o identificador, linha" + lexico.cont);
+                System.exit(1);
+            }
+        } while (!"sdoispontos".equals(token.ssimbolo));
+
+        token = lexico.token();
+        analisaTipo();
     }
-    
+
     private static void analisaTipo() {
         if(!"sinteiro".equals(token.ssimbolo) || !"sbooleano".equals(token.ssimbolo))
         {
@@ -141,7 +194,7 @@ public class Compiladores2 {
         token = lexico.token();
 
     }
-    
+
     private static void analisaComandoSimples() {
         if ("sidentificador".equals(token.ssimbolo)) {
             analisaAtribChProcedimento();
@@ -162,56 +215,105 @@ public class Compiladores2 {
             analisaComandos();
 
     }
-    
-    private static void analisaAtribChProcedimento() {
 
+    private static void analisaAtribChProcedimento() {
+        token = lexico.token();
+        if ("satribuicao".equals(token.ssimbolo)) {
+            analisaAtribuicao();
+        } else {
+            chamadaProcedimento();
+        }
     }
 
     private static void analisaLeia() {
-
+        token = lexico.token();
+        if ("sabre_parenteses".equals(token.ssimbolo)) {
+            token = lexico.token();
+            if ("sidentificador".equals(token.ssimbolo)) {
+                token = lexico.token();
+                if ("sfecha_parenteses".equals(token.ssimbolo)) {
+                    token = lexico.token();
+                } else {
+                    System.err.println("Falta o ), linha" + lexico.cont);
+                    System.exit(1);
+                }
+            } else {
+                System.err.println("Falta o identificador, linha" + lexico.cont);
+                System.exit(1);
+            }
+        } else {
+            System.err.println("Falta o (, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
-    
+
     private static void analisaEscreva() {
 
+        token = lexico.token();
+        if ("sabre_parenteses".equals(token.ssimbolo)) {
+            token = lexico.token();
+
+            if ("sidentificador".equals(token.ssimbolo)) {
+                token = lexico.token();
+
+                if ("sfecha_parenteses".equals(token.ssimbolo)) {
+                    token = lexico.token();
+                } else {
+                    System.err.println("Falta o ), linha" + lexico.cont);
+                    System.exit(1);
+                }
+
+            } else {
+                System.err.println("Falta o identificador, linha" + lexico.cont);
+                System.exit(1);
+            }
+        } else {
+            System.err.println("Falta o (, linha" + lexico.cont);
+            System.exit(1);
+        }
     }
-    
+
     private static void analisaEnquanto() {
 
     }
-    
+
     private static void analisaSe() {
 
     }
-    
+
     private static void analisaDeclaracaoProcedimento() {
 
     }
-    
+
     private static void analisaDeclaracaoFuncao() {
 
     }
-    
+
     private static void analisaExpressao() {
 
     }
-    
+
     private static void analisaExpressaoSimples() {
 
     }
-    
+
     private static void analisaTermo() {
 
     }
-    
+
     private static void analisaFator() {
 
     }
-    
-    private static void analisaChamadaProcedimento() {
+
+    private static void chamadaFuncao() {
 
     }
-    
-    private static void analisaChamadaFuncao() {
+
+    private static void analisaAtribuicao() {
+
+    }
+
+    private static void chamadaProcedimento() {
 
     }
 }
