@@ -11,13 +11,15 @@ package compiladores2;
  */
 public class Compiladores2 {
 
+    private static final Lexico lexico = new Lexico();
+    private static Token token;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        Lexico lexico = new Lexico();
-        Token token = lexico.token();
+        token = lexico.token();
         if ("sprograma".equals(token.ssimbolo)) {
             token = lexico.token();
 
@@ -26,26 +28,34 @@ public class Compiladores2 {
 
                 if ("spontovirgula".equals(token.ssimbolo)) {
 
-//AnalisaBloco
+                    AnalisaBloco();
                     if ("sponto".equals(token.ssimbolo)) {
 
                         if (lexico.token() == null) {
-//sucesso                   
+                            System.out.println("Compilado com sucesso");
                         } else {
                             System.err.println("Comandos após o fim do programa, linha" + lexico.cont);
+                            System.exit(1);
+
                         }
                     } else {
                         System.err.println(". Não encontrado, linha" + lexico.cont);
+                        System.exit(1);
                     }
                 } else {
                     System.err.println(". Não encontrado, linha" + lexico.cont);
+                    System.exit(1);
+
                 }
 
             } else {
                 System.err.println("Nome do programa não encontrado, linha " + token.ssimbolo);
+                System.exit(1);
+
             }
         } else {
             System.err.println("Palavra reservada programa não encontrado, linha" + lexico.cont);
+            System.exit(1);
 
         }
 
@@ -53,6 +63,25 @@ public class Compiladores2 {
             System.out.println(token.lexema + " " + token.ssimbolo + " ");
             token = lexico.token();
         }
+    }
+
+    public static void AnalisaBloco() {
+        token = lexico.token();
+        Analisa_et_variaveis();
+        Analisa_subrotinas();
+        Analisa_comandos();
+    }
+
+    private static void Analisa_et_variaveis() {
+        
+    }
+
+    private static void Analisa_subrotinas() {
+
+    }
+
+    private static void Analisa_comandos() {
+
     }
 
 }
