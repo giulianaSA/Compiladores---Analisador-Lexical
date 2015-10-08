@@ -26,7 +26,7 @@ public class Compiladores2 {
             if ("sidentificador".equals(token.ssimbolo)) {
                 token = lexico.token();
 
-                if ("spontovirgula".equals(token.ssimbolo)) {
+                if ("sponto_virgula".equals(token.ssimbolo)) {
 
                     analisaBloco();
                     if ("sponto".equals(token.ssimbolo)) {
@@ -79,7 +79,7 @@ public class Compiladores2 {
             if ("sidentificador".equals(token.ssimbolo)) {
                 while ("sidentificador".equals(token.ssimbolo)) {
                     analisaVariaveis();
-                    if ("spontvirg".equals(token.ssimbolo)) {
+                    if ("sponto_virgula".equals(token.ssimbolo)) {
                         token = lexico.token();
                     } else {
                         System.err.println("; Não encontrado, linha" + lexico.cont);
