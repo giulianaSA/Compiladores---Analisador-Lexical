@@ -29,7 +29,7 @@ public class Lexico {
 
     public static void arquivo() {
 
-        String arquivo = "/Users/thiagoalves/Documents/Projects/Compiladores---Analisador-Lexical/teste1.txt";
+        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste2.txt";
 
         FileInputStream arq;
         try {
