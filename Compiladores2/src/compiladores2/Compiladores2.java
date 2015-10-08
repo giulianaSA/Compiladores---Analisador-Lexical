@@ -28,15 +28,25 @@ public class Compiladores2 {
 
 //AnalisaBloco
                     if ("sponto".equals(token.ssimbolo)) {
-                       
+
                         if (lexico.token() == null) {
 //sucesso                   
-                        }else
-                            System.err.println("Comandos após o fim do programa, linha"+Lexico.cont);
+                        } else {
+                            System.err.println("Comandos após o fim do programa, linha" + lexico.cont);
+                        }
+                    } else {
+                        System.err.println(". Não encontrado, linha" + lexico.cont);
                     }
+                } else {
+                    System.err.println(". Não encontrado, linha" + lexico.cont);
                 }
 
+            } else {
+                System.err.println("Nome do programa não encontrado, linha " + token.ssimbolo);
             }
+        } else {
+            System.err.println("Palavra reservada programa não encontrado, linha" + lexico.cont);
+
         }
 
         while (token != null) {
