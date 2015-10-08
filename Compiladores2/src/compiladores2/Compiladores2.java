@@ -28,7 +28,7 @@ public class Compiladores2 {
 
                 if ("spontovirgula".equals(token.ssimbolo)) {
 
-                    AnalisaBloco();
+                    analisaBloco();
                     if ("sponto".equals(token.ssimbolo)) {
 
                         if (lexico.token() == null) {
@@ -65,23 +65,86 @@ public class Compiladores2 {
         }
     }
 
-    public static void AnalisaBloco() {
+    public static void analisaBloco() {
         token = lexico.token();
-        Analisa_et_variaveis();
-        Analisa_subrotinas();
-        Analisa_comandos();
+        analisaEtVariaveis();
+        analisaSubrotinas();
+        analisaComandos();
     }
 
-    private static void Analisa_et_variaveis() {
+    private static void analisaEtVariaveis() {
         
     }
 
-    private static void Analisa_subrotinas() {
+    private static void analisaSubrotinas() {
 
     }
 
-    private static void Analisa_comandos() {
+    private static void analisaComandos() {
+
+    }
+    
+    private static void analisaVariaveis() {
+
+    }
+    
+    private static void analisaTipo() {
+
+    }
+    
+    private static void analisaComandoSimples() {
+
+    }
+    
+    private static void analisaAtribChProcedimento() {
 
     }
 
+    private static void analisaLeia() {
+
+    }
+    
+    private static void analisaEscreva() {
+
+    }
+    
+    private static void analisaEnquanto() {
+
+    }
+    
+    private static void analisaSe() {
+
+    }
+    
+    private static void analisaDeclaracaoProcedimento() {
+
+    }
+    
+    private static void analisaDeclaracaoFuncao() {
+
+    }
+    
+    private static void analisaExpressao() {
+
+    }
+    
+    private static void analisaExpressaoSimples() {
+
+    }
+    
+    private static void analisaTermo() {
+
+    }
+    
+    private static void analisaFator() {
+
+    }
+    
+    private static void analisaChamadaProcedimento() {
+
+    }
+    
+    private static void analisaChamadaFuncao() {
+
+    }
 }
