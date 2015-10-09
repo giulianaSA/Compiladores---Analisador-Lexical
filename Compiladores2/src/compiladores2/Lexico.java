@@ -21,7 +21,8 @@ public class Lexico {
     public static int letra;
     public static int cont = 1;
 
-    private static int flag = 0;
+    private static int flag = 0,flag2 = 0;
+    
 
     public Lexico() {
         arquivo();
@@ -29,7 +30,7 @@ public class Lexico {
 
     public static void arquivo() {
 
-        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste2.txt";
+        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste7.txt";
 
         FileInputStream arq;
         try {
@@ -48,10 +49,14 @@ public class Lexico {
             return -1;
         }
     }
-
+    
     public Token token() {
 
-        letra = proximoCaracter();
+        if(flag2 == 0)
+        {
+             letra = proximoCaracter();
+             flag2=1;
+        }
 
         while (letra != -1) {
 
@@ -101,6 +106,7 @@ public class Lexico {
                 }
 
             }
+           
         }
 
 //        for (Token lista1 : lista) {
@@ -125,6 +131,7 @@ public class Lexico {
             trataPulaLinha();
         } else {
             trataLetra((char) letra);
+             
         }
 
     }
@@ -224,7 +231,7 @@ public class Lexico {
                 System.out.printf("Simbolo inválido '%c' Linha:%d\n", (char) letra, cont);
                 System.exit(0);
             }
-        }
+          }
 
     }
 
