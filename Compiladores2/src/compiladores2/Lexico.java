@@ -30,7 +30,7 @@ public class Lexico {
 
     public static void arquivo() {
 
-        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste7.txt";
+        String arquivo = "/Users/thiagoalves/Documents/Projects/Compiladores---Analisador-Lexical/teste1.txt";
 
         FileInputStream arq;
         try {
@@ -117,7 +117,7 @@ public class Lexico {
     }
 
     public static void pegaToken(char letra) {
-        if ((char) letra == '1' || (char) letra == '2' || (char) letra == '3' || (char) letra == '4' || (char) letra == '5' || (char) letra == '6' || (char) letra == '7' || (char) letra == '8' || (char) letra == '9') {
+        if ((char) letra == '0' || (char) letra == '1' || (char) letra == '2' || (char) letra == '3' || (char) letra == '4' || (char) letra == '5' || (char) letra == '6' || (char) letra == '7' || (char) letra == '8' || (char) letra == '9') {
             trataDigito((char) letra);
         } else if ((char) letra == ':') {
             trataAtribuicao((char) letra);
@@ -146,7 +146,7 @@ public class Lexico {
 
         Token token = new Token();
         token.lexema = digito;
-        token.ssimbolo = "Snumero";
+        token.ssimbolo = "snumero";
         lista.add(token);
         flag = 1;
     }
