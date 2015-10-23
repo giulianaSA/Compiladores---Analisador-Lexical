@@ -30,7 +30,7 @@ public class Lexico {
 
     public static void arquivo() {
 
-        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste4.txt";
+        String arquivo = "/Users/Aleproti/Desktop/Compiladores---Analisador-Lexical/teste5.txt";
 
         FileInputStream arq;
         try {
@@ -225,7 +225,7 @@ public class Lexico {
 
             }
         } else {
-            if ((char) letra == '\r' || (char) letra == '\t' ){
+            if ((char) letra == '\r' || (char) letra == '\t' || letra == 32){
                 trataPulaLinha();
             } else {
                 System.out.printf("Simbolo inválido '%c' Linha:%d\n", (char) letra, cont);

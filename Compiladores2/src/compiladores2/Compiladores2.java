@@ -139,11 +139,12 @@ public class Compiladores2 {
                         if (!"sfim".equals(token.ssimbolo)) {
                             analisaComandoSimples();
                         }
+                    }
                         else {
                             System.err.println("Erro de ;, linha" + lexico.cont + " " + token.ssimbolo);
                             System.exit(1);
                         }
-                    }
+                    
                 }
                 token = lexico.token();
             } else {
