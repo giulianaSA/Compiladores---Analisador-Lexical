@@ -9,7 +9,7 @@ package compiladores2;
  *
  * @author thiagoalves
  */
-public class Compiladores2 {
+public class Sintatico {
 
     private static final Lexico lexico = new Lexico();
     private static Token token;
